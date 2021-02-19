@@ -26,6 +26,13 @@
 #### 1.8 - Next answer
 [![Generic badge](https://img.shields.io/badge/TODO-b71c1c.svg)](https://shields.io/)
 
+#### 1.9 - Use Joker
+[![Generic badge](https://img.shields.io/badge/TODO-b71c1c.svg)](https://shields.io/)
+
+* Copy the response of someone
+* Copy the response of the majority
+* Skip the question
+
 ### 2 - Configure
 #### 2.1 - Quiz Options
 [![Generic badge](https://img.shields.io/badge/TODO-b71c1c.svg)](https://shields.io/)
