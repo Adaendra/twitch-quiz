@@ -2,6 +2,17 @@
 
 Project made for the Twitch Channel Points API Hackathon.
 
+## Description
+Do you like to play quiz?
+
+Now you can do it on stream with your viewers!
+
+<br/>
+
+---
+
+<br/>
+
 ## Backend
 [![Generic badge](https://img.shields.io/badge/Language-Python%20Flask-303f9f.svg)](https://shields.io/)
 
