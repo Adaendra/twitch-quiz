@@ -33,3 +33,9 @@
 
 ##### Player Options
 * Lives : Number of lives for each player (0 = infinite). In a King of the hill mode, must be at least 1.
+
+### 3 - Events
+#### 3.1 - Send event to external elements
+[![Generic badge](https://img.shields.io/badge/TODO-b71c1c.svg)](https://shields.io/)
+
+Send event to external elements to have a light animation.
