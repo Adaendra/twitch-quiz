@@ -21,6 +21,9 @@ Create a webpage which can be integrated on OBS.
 #### 1.5 - Show stats
 [![Generic badge](https://img.shields.io/badge/TODO-b71c1c.svg)](https://shields.io/)
 
+#### 1.6 - Next Question
+[![Generic badge](https://img.shields.io/badge/TODO-b71c1c.svg)](https://shields.io/)
+
 ### 2 - Configure
 #### 2.1 - Quiz Options
 [![Generic badge](https://img.shields.io/badge/TODO-b71c1c.svg)](https://shields.io/)
@@ -31,6 +34,10 @@ Create a webpage which can be integrated on OBS.
 
 ##### Player Options
 * Lives : Number of lives for each player (0 = infinite). In a King of the hill mode, must be at least 1.
+
+##### Question duration
+* Time
+* Event
 
 
 
