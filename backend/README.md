@@ -23,6 +23,9 @@
 #### 1.7 - Calculate stats
 [![Generic badge](https://img.shields.io/badge/TODO-b71c1c.svg)](https://shields.io/)
 
+#### 1.8 - Next answer
+[![Generic badge](https://img.shields.io/badge/TODO-b71c1c.svg)](https://shields.io/)
+
 ### 2 - Configure
 #### 2.1 - Quiz Options
 [![Generic badge](https://img.shields.io/badge/TODO-b71c1c.svg)](https://shields.io/)
@@ -33,6 +36,10 @@
 
 ##### Player Options
 * Lives : Number of lives for each player (0 = infinite). In a King of the hill mode, must be at least 1.
+
+##### Question duration
+* Time 
+* Event
 
 ### 3 - Events
 #### 3.1 - Send event to external elements
