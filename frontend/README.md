@@ -15,16 +15,10 @@ Create a webpage which can be integrated on OBS.
 #### 1.3 - Stop quiz
 [![Generic badge](https://img.shields.io/badge/TODO-b71c1c.svg)](https://shields.io/)
 
-#### 1.4 - Add player
+#### 1.4 - Show rankings
 [![Generic badge](https://img.shields.io/badge/TODO-b71c1c.svg)](https://shields.io/)
 
-#### 1.5 - Player answer
-[![Generic badge](https://img.shields.io/badge/TODO-b71c1c.svg)](https://shields.io/)
-
-#### 1.6 - Show rankings
-[![Generic badge](https://img.shields.io/badge/TODO-b71c1c.svg)](https://shields.io/)
-
-#### 1.7 - Show stats
+#### 1.5 - Show stats
 [![Generic badge](https://img.shields.io/badge/TODO-b71c1c.svg)](https://shields.io/)
 
 ### 2 - Configure
