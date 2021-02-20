@@ -1,5 +1,10 @@
 # Twitch-Quiz Backend
 
+## How-to run
+> $env:FLASK_APP = "main.py"
+> 
+> python -m flask run
+
 ## Features
 ### 1 - Play
 #### 1.1 - Generate quiz

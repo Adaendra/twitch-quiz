@@ -16,9 +16,9 @@ Now you can do it on stream with your viewers!
 ## Backend
 [![Generic badge](https://img.shields.io/badge/Language-Python%20Flask-303f9f.svg)](https://shields.io/)
 
-[Documentation](./backend/README.md)
+[Documentation](documentation/backend.md)
 
 ## Frontend
 [![Generic badge](https://img.shields.io/badge/Language-Vue.js-303f9f.svg)](https://shields.io/)
 
-[Documentation](./frontend/README.md)
+[Documentation](documentation/frontend.md)
