@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <title>Flask_Chat_App</title>
+  <base href="/">
 
   <!-- Import required libraries -->
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
@@ -12,15 +13,22 @@
   <div id="app" onclick="sendMessage()" style="border: solid black 1px; background-color: #bbbbbb;">
     [[ message ]]
   </div>
+  <div id="app2">
+    <single-file-component></single-file-component>
+  </div>
+  <!--<script type="module" src="SingleFileComponent.js"></script>-->
+  <script type="module" src="app.js"></script>
 
   <script>
   var app = new Vue({
-  el: '#app',
-  delimiters: ['[[', ']]'],
-  data: {
-    message: 'Hello Vue!'
-  }
-})
+    el: '#app',
+    delimiters: ['[[', ']]'],
+    data: {
+      message: 'Hello Vue!'
+    }
+  })
+
+
 
     var socket = io("localhost:5000");
     socket.emit('my event', {"message": "test"});

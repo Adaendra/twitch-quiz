@@ -1,7 +1,15 @@
 # Twitch-Quiz Backend
 
-## How-to run
+## Technologies
+* Flask : https://flask.palletsprojects.com/en/1.1.x/
+* Flask SocketIO : https://flask-socketio.readthedocs.io/en/latest/
+
+### How-to run
 > flask run
+
+<br/>
+
+---
 
 ## Features
 ### 1 - Play
