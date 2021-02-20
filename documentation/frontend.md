@@ -2,6 +2,10 @@
 
 Webapp to configure and show the quiz.
 
+## Technologies
+* Vue.js : https://vuejs.org
+* Socket.io : https://socket.io
+
 ## Features
 ### 1 - Play
 #### 1.1 - Show quiz
