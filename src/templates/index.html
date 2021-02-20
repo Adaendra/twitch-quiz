@@ -1,43 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <title>Flask_Chat_App</title>
-
-  <!-- Import required libraries -->
-  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.min.js" integrity="sha512-tXH7Av8en7+/hg0XwBppaCDPmpJhUXbZ+j7lNC4y+ZQpmCZQcgQN6RjkM7Irj1MUW7bZengfuTOqR4RzCC4bnA==" crossorigin="anonymous"></script>
-</head>
-<body>
-
-  <div id="app" onclick="sendMessage()" style="border: solid black 1px; background-color: #bbbbbb;">
-    [[ message ]]
-  </div>
-  <div id="app2">
-    <single-file-component></single-file-component>
-  </div>
-  <!--<script type="module" src="SingleFileComponent.js"></script>-->
-  <script type="module" src="app.js"></script>
-
-  <script>
-  var app = new Vue({
-    el: '#app',
-    delimiters: ['[[', ']]'],
-    data: {
-      message: 'Hello Vue!'
-    }
-  })
-
-
-
-    var socket = io("localhost:5000");
-    socket.emit('my event', {"message": "test"});
-    socket.on('my response', (json) => {
-      console.log('response :: ', json);
-    });
-
-    function sendMessage() {
-      socket.emit('my event', {"message": "test"});
-    }
-  </script>
-</body>
+  <head>
+    <meta charset="utf-8">
+    <title>Vue.js Webpack Example</title>
+  </head>
+  <body>
+    <div id="app" class="container">
+      <app></app>
+    </div>
+    <script src="static/dist/build.js"></script>
+  </body>
 </html>
