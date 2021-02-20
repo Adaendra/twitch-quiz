@@ -1,9 +1,7 @@
 # Twitch-Quiz Backend
 
 ## How-to run
-> $env:FLASK_APP = "main.py"
-> 
-> python -m flask run
+> flask run
 
 ## Features
 ### 1 - Play

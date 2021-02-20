@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Flask_Chat_App</title>
+</head>
+<body>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.min.js" integrity="sha512-tXH7Av8en7+/hg0XwBppaCDPmpJhUXbZ+j7lNC4y+ZQpmCZQcgQN6RjkM7Irj1MUW7bZengfuTOqR4RzCC4bnA==" crossorigin="anonymous"></script>
+  <script>
+    var socket = io();
+    socket.emit('my event', {"message": "test"});
+    socket.on('my response', (json) => {
+      console.log('response :: ', json);
+    });
+
+    function sendMessage() {
+      socket.emit('my event', {"message": "test"});
+    }
+  </script>
+
+  <div onclick="sendMessage()" style="border: solid black 1px; background-color: #bbbbbb;">
+    Click
+  </div>
+</body>
+</html>
