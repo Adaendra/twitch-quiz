@@ -1,8 +1,7 @@
 <template>
-  <div>
-    <h1>{{ msg }}</h1>
-    <clock></clock>
-  </div>
+  <!--<RwvHeader />-->
+  <router-view></router-view>
+  <!--<RwvFooter />-->
 </template>
 
 <script>
@@ -24,11 +23,14 @@
   body {
     font : 100% Helvetica, sans-serif;
     color: #ecf0f1;
-    text-align: center;
     background-color: #34495e;
+    overflow: hidden;
   }
   .container {
-    margin: 0 auto;
-    padding-top: 70px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
   }
 </style>
