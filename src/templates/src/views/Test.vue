@@ -9,7 +9,7 @@ import Clock from './../components/clock.vue';
 export default {
   data () {
     return {
-      msg: 'Home'
+      msg: 'TEST'
     }
   },
   components: {

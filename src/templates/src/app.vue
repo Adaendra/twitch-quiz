@@ -5,16 +5,9 @@
 </template>
 
 <script>
-  import Clock from './components/clock.vue';
-
   export default {
     data () {
-      return {
-        msg: 'Welcome to Vue.js World!'
-      }
-    },
-    components: {
-      Clock
+      return {}
     }
   };
 </script>

@@ -1,5 +1,4 @@
-import ApiService from "@/common/api.service";
-import JwtService from "@/common/jwt.service";
+// import ApiService from "@/common/api.service";
 import {
     LOGIN,
     LOGOUT,
@@ -12,7 +11,7 @@ import { SET_AUTH, PURGE_AUTH, SET_ERROR } from "./types/mutation.type";
 const state = {
     errors: null,
     user: {},
-    isAuthenticated: !!JwtService.getToken()
+    isAuthenticated: false
 };
 
 const getters = {
@@ -50,7 +49,7 @@ const mutations = {
         state.isAuthenticated = true;
         state.user = user;
         state.errors = {};
-        JwtService.saveToken(state.user.token);
+        // JwtService.saveToken(state.user.token);
     }
 };
 

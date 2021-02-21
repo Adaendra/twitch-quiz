@@ -5,6 +5,8 @@
 * Flask SocketIO : https://flask-socketio.readthedocs.io/en/latest/
 
 ### How-to run
+> $env:FLASK_APP = "main"
+>
 > flask run
 
 <br/>
