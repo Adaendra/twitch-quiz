@@ -11,11 +11,8 @@ if __name__ == '__main__':
 
 @app.route('/')
 def siteIndex():
-    return render_template('index.html')
+    return render_template('twitch_quiz_frontend/index.html')
 
-@app.route('/index2')
-def siteIndex2():
-    return render_template('index2.html')
 
 @socketio.on('my event')
 def handle_my_custom_event(json):
