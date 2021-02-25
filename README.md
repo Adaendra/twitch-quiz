@@ -7,6 +7,8 @@ Do you like to play quiz?
 
 Now you can do it on stream with your viewers!
 
+*Work in progress*
+
 <br/>
 
 ---
