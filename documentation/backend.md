@@ -5,6 +5,7 @@
 * Flask SocketIO : https://flask-socketio.readthedocs.io/en/latest/
 
 ### How-to run
+*From the main project folder.*
 > $env:FLASK_APP = "server"
 >
 > flask run
@@ -65,4 +66,4 @@
 #### 3.1 - Send event to external elements
 [![Generic badge](https://img.shields.io/badge/TODO-b71c1c.svg)](https://shields.io/)
 
-Send event to external elements to have a light animation.
+Send event to external elements to have a light animation or this kind of events.
