@@ -6,4 +6,6 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'secret!'
 socketio = SocketIO(app)
 
-from apps.controllers import *
+# Import all controllers 
+from apps.rest_controllers import *
+from apps.socket_controllers import *
