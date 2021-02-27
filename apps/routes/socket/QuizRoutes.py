@@ -1,7 +1,7 @@
-from apps import app, render_template, emit, socketio
+from apps import socketio, emit
 
 
-class Socket(object):
+class QuizRoutes(object):
 
     @socketio.on('my event')
     def handle_my_custom_event(json):

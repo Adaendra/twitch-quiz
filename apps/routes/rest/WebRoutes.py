@@ -1,7 +1,7 @@
-from apps import app, render_template, emit, socketio
+from apps import app, render_template
 
 # Controller to display all web pages.
-class WebController(object):
+class WebRoutes(object):
 
     # Return the index.html of the Vue.js webapp.
     @app.route('/', methods=['GET'])
