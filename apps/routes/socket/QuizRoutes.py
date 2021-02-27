@@ -1,6 +1,6 @@
 from apps import socketio, emit
 
-
+# Socket routes for quiz events.
 class QuizRoutes(object):
 
     @socketio.on('my event')
