@@ -4,8 +4,16 @@ Webapp to configure and show the quiz.
 
 <br/>
 
+## Commands
+> cd apps/templates/twitch_quiz_frontend
+>
+> npm run-script build
+
+<br/>
+
 ## Technologies
 * Vue.js : https://vuejs.org
+    * Life-Cycle Diagram: https://vuejs.org/v2/guide/instance.html#Lifecycle-Diagram
 * Socket.io : https://socket.io
 
 <br/>
