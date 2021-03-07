@@ -7,7 +7,10 @@
 * Flask : https://flask.palletsprojects.com/en/1.1.x/
 * Flask SocketIO : https://flask-socketio.readthedocs.io/en/latest/
 * PyTest : https://docs.pytest.org
-* PyTest-Mock : https://github.com/pytest-dev/pytest-mock/
+* Unit Testing : 
+    - https://github.com/pytest-dev/pytest-mock/
+    - https://docs.python.org/3/library/unittest.mock.html
+    - https://code-maven.com/slides/python/pytest-class
 
 ## Commands
 ### Install dependencies

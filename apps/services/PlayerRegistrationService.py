@@ -15,21 +15,22 @@ Contains all methods to manage Player registration.
 """
 
 
-def registerPlayersFromRegistrationReward():
+def registerPlayersFromRegistrationReward(is_check_in_open):
     """
     If the Check-in is open, check is there new contestants for the quiz from the registration reward.
     If they are not already registered, they will be added to the list.
+    :param is_check_in_open: Boolean - True if open, False otherwise
     """
 
     # If the Check-In is open, check the new contestants.
-    if quiz_store.isPlayerCheckInOpen:
+    if is_check_in_open:
         redemption_list_to_treat = getUnfulfilledRewardRedemptions(reward_id_store.getRegistrationRewardId())
 
         for redemption in redemption_list_to_treat:
             player_name = redemption['broadcaster_name']
 
             # If user is not already registered, add the user the list and fulfill the redemption.
-            if not any(filter(lambda contestant: contestant.name == player_name, quiz_store.listContestants)):
+            if not any(filter(lambda contestant: contestant.contestant_name == player_name, quiz_store.listContestants)):
                 quiz_store.listContestants.insert(
                     0,
                     QuizContestant(player_name, user_config_store.user_configs['quiz']['number_of_lives_per_contestant'])
@@ -51,7 +52,7 @@ def registerPlayersFromRegistrationReward():
         sendContestantCheckInStatistics()
 
         # Continue to register player
-        registerPlayersFromRegistrationReward()
+        registerPlayersFromRegistrationReward(quiz_store.isPlayerCheckInOpen)
 
 
 def sendContestantCheckInStatistics():

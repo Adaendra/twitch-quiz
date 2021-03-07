@@ -1,4 +1,5 @@
 from apps.services.utils.HttpUtils import doHttpGet
+from apps.constants.TwitchURLConstants import STREAM_DATA_URL
 
 """
 TwitchStreamService
@@ -17,7 +18,7 @@ def retrieveBroadcastId(bearer_token, client_id):
     :return: String - The broadcast id.
     """
     return doHttpGet(
-        url='https://api.twitch.tv/helix/streams',
+        url=STREAM_DATA_URL,
         headers={
             'Authorization': 'Bearer ' + bearer_token,
             'Client-Id': client_id

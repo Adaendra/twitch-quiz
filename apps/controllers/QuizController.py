@@ -27,7 +27,7 @@ class QuizController:
         :return:
         """
         # Block if account is not setup to connect to the twitch api
-        if configController.isAllRequiredConfigDefined():
+        if not configController.isAllRequiredConfigDefined():
             raiseError("At least one mandatory configuration is missing.")
 
         else:
@@ -43,11 +43,11 @@ class QuizController:
             try:
                 createQuizRegistrationReward()
 
+                registerPlayersFromRegistrationReward(quiz_store.isPlayerCheckInOpen)
             except Exception as err:
                 self.logger.error("{0}".format(err))
                 raiseError("An error appears during the quiz initialization")
 
-            registerPlayersFromRegistrationReward()
 
     def start_quiz(self):
         # Close Player Registration

@@ -26,10 +26,5 @@ class QuizStore:
 
         random.shuffle(self.listQuestions)
 
-        # TODO: To remove
-        print("-- QUESTION LIST --")
-        for question in self.listQuestions:
-            print(question)
-
 
 quiz_store = QuizStore()

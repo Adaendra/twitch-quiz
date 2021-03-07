@@ -1,4 +1,4 @@
-from apps import app, render_template
+from apps import app
 from apps.controllers.WebController import webController
 
 

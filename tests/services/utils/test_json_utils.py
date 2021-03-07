@@ -3,5 +3,6 @@ from apps.services.utils.JsonUtils import readJson
 
 class TestJsonUtils:
 
-    def test_read_json(self):
-        assert readJson("tests/resources/jsonTest.json") == { "value": "test" }
+    # ----- readJson ----- #
+    def test_readJson_ok(self):
+        assert readJson("tests/resources/jsonTest.json") == {"value": "test"}
