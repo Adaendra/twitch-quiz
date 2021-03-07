@@ -1,0 +1,24 @@
+[
+  {
+    "question": "Who wins the 2018 FIFA World Cup?",
+    "proposals": [
+      "France",
+      "Belgium",
+      "Croatia",
+      "England"
+    ],
+    "answer": "France",
+    "theme": "sport"
+  },
+  {
+    "question": "Which city is the capital of England?",
+    "proposals": [
+      "Manchester",
+      "Liverpool",
+      "London",
+      "Cambridge"
+    ],
+    "answer": "London",
+    "theme": "geography"
+  }
+]

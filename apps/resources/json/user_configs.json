@@ -1,0 +1,10 @@
+{
+  "clientId": "loj3bbkmkkl0qbmn6igfcfx18sdx4y",
+  "clientSecret": "akb7kk9lpbfyqxbl3ohozcrs2h1opo",
+  "rewardsCosts": {
+    "playerRegistration" : 5000
+  },
+  "quiz": {
+    "number_of_lives_per_contestant": 3
+  }
+}
