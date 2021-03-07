@@ -17,7 +17,7 @@ def retrieveBroadcastId(bearer_token, client_id):
     :return: String - The broadcast id.
     """
     return doHttpGet(
-        url='https://api.twitch.tv/helix/streams',
+        url='https://api.twitch.tv/helix/streams', # TODO : Constante
         headers={
             'Authorization': 'Bearer ' + bearer_token,
             'Client-Id': client_id
