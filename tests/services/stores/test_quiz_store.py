@@ -1,10 +1,12 @@
-from apps.services.stores.QuizStore import quiz_store
+from apps.services.stores.QuizStore import QuizStore
 from tests.TestsConstants import TEST_QUESTION_LIST
 
 
 class TestQuizStore:
 
     def test_quiz_store_init(self):
+        quiz_store = QuizStore()
+
         assert quiz_store.currentQuestionIndex == 0
         assert quiz_store.listQuestions == []
         assert quiz_store.isPlayerCheckInOpen == False
@@ -17,6 +19,7 @@ class TestQuizStore:
             return_value=TEST_QUESTION_LIST
         )
 
+        quiz_store = QuizStore()
         quiz_store.resetQuiz()
 
         assert quiz_store.currentQuestionIndex == 0
