@@ -37,4 +37,33 @@ class TestTwitchRedemptionService:
             createReward("title", 5000)
             assert err == 'An error occurs during the reward creation. Status code : 400'
 
-    # ----- createReward ----- #
+    # ----- deleteReward ----- #
+    def test_deleteReward_ok(self, mocker):
+        mocker.patch(
+            'apps.services.TwitchRedemptionService.generateRedemptionToken'
+        )
+        mockResponse = mocker.patch(
+            'apps.services.TwitchRedemptionService.doHttpDelete'
+        )
+        mockResponse.return_value.status_code = 204
+
+        user_config_store.setBroadcasterId("id")
+
+        deleteReward("reward_id")
+
+    def test_deleteReward_nok(self, mocker):
+        mocker.patch(
+            'apps.services.TwitchRedemptionService.generateRedemptionToken'
+        )
+        mockResponse = mocker.patch(
+            'apps.services.TwitchRedemptionService.doHttpDelete'
+        )
+        mockResponse.return_value.status_code = 400
+
+        user_config_store.setBroadcasterId("id")
+
+        with pytest.raises(Exception) as err:
+            deleteReward("reward_id")
+            assert err == 'An error occurs during the reward deletion. Status code : 400'
+
+
