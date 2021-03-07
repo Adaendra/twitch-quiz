@@ -1,3 +1,5 @@
+from unittest.mock import call
+from apps.constants.ResourcesConstants import QUESTION_LIST_FILE_PATH
 from apps.services.stores.QuizStore import QuizStore
 from tests.TestsConstants import TEST_QUESTION_LIST
 
@@ -16,7 +18,7 @@ class TestQuizStore:
 
     # ----- resetQuiz ----- #
     def test_resetQuiz_ok(self, mocker):
-        mocker.patch(
+        mock_read_json = mocker.patch(
             'apps.services.stores.QuizStore.readJson',
             return_value=TEST_QUESTION_LIST
         )
@@ -29,3 +31,6 @@ class TestQuizStore:
         assert quiz_store.isPlayerCheckInOpen is True
         assert quiz_store.isQuizOnGoing is False
         assert quiz_store.listContestants == []
+
+        assert mock_read_json.call_count == 1
+        assert mock_read_json.call_args == call(QUESTION_LIST_FILE_PATH)
