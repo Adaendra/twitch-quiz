@@ -47,7 +47,7 @@ class QuizController:
                 self.logger.error("{0}".format(err))
                 raiseError("An error appears during the quiz initialization")
 
-            registerPlayersFromRegistrationReward()
+            registerPlayersFromRegistrationReward(quiz_store.isPlayerCheckInOpen)
 
     def start_quiz(self):
         # Close Player Registration
