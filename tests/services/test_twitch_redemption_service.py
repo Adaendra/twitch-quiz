@@ -97,3 +97,32 @@ class TestTwitchRedemptionService:
             getUnfulfilledRewardRedemptions("reward_id")
             assert err == 'An error occurs while retrieving the reward redemptions. Status code : 400'
 
+    # ----- updateRewardRedemptionStatus ----- #
+    def test_updateRewardRedemptionStatus_ok(self, mocker):
+        mocker.patch(
+            'apps.services.TwitchRedemptionService.generateRedemptionToken'
+        )
+        mockResponse = mocker.patch(
+            'apps.services.TwitchRedemptionService.doHttpPatch'
+        )
+        mockResponse.return_value.status_code = 200
+
+        user_config_store.setBroadcasterId("id")
+
+        updateRewardRedemptionStatus("reward_id", "redemption_id", "CANCELLED")
+
+    def test_updateRewardRedemptionStatus_nok(self, mocker):
+        mocker.patch(
+            'apps.services.TwitchRedemptionService.generateRedemptionToken'
+        )
+        mockResponse = mocker.patch(
+            'apps.services.TwitchRedemptionService.doHttpPatch'
+        )
+        mockResponse.return_value.status_code = 400
+
+        user_config_store.setBroadcasterId("id")
+
+        with pytest.raises(Exception) as err:
+            updateRewardRedemptionStatus("reward_id", "redemption_id", "CANCELLED")
+            assert err == 'An error occurs while updating the status of a reward redemption. Status code : 400'
+
