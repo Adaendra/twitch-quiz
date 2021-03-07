@@ -6,7 +6,8 @@ import pytest
 
 class TestUserConfigStore:
 
-    def test_init_values(self, mocker):
+    # ----- UserConfigStore ----- #
+    def test_UserConfigStore_init(self, mocker):
         mocker.patch(
             'apps.services.stores.UserConfigStore.readJson',
             return_value=TEST_USER_CONFIGS

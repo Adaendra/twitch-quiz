@@ -3,7 +3,8 @@ from apps.services.stores.RewardIdStore import reward_id_store
 
 class TestRewardIdStore:
 
-    def test_registration_reward_id(self):
+    # ----- RegistrationRewardId ----- #
+    def test_RegistrationRewardId(self):
         # Test default value
         assert reward_id_store.getRegistrationRewardId() == ""
 

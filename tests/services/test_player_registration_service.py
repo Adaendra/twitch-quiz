@@ -3,7 +3,8 @@ from apps.services.PlayerRegistrationService import registerPlayersFromRegistrat
 
 class TestPlayerRegistrationService:
 
-    def test_registerPlayersFromRegistrationReward(self, mocker):
+    # ----- registerPlayersFromRegistrationReward ----- #
+    def test_registerPlayersFromRegistrationReward_ok(self, mocker):
         quiz_store.isPlayerCheckInOpen = False
         quiz_store.listContestants = []
         mocker.patch(
@@ -25,7 +26,8 @@ class TestPlayerRegistrationService:
 
         assert len(quiz_store.listContestants) == 2
 
-    def test_send_contestant_check_in_statistics(self, mocker):
+    # ----- sendContestantCheckInStatistics ----- #
+    def test_sendContestantCheckInStatistics_ok(self, mocker):
         mocker.patch(
             'apps.services.PlayerRegistrationService.emit'
         )

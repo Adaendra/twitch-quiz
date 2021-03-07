@@ -3,9 +3,10 @@ from apps.services.utils.HttpUtils import doHttpPut,doHttpPatch,doHttpPost,doHtt
 
 class TestHttpUtils:
 
-    def test_do_http_get(self, mocker):
+    # ----- doHttpGet ----- #
+    def test_doHttpGet_ok(self, mocker):
         mock_response = {
-            "responseCode" : 200
+            "responseCode": 200
         }
 
         mocker.patch(
@@ -15,9 +16,10 @@ class TestHttpUtils:
 
         assert doHttpGet("", {}, {}) == mock_response
 
-    def test_do_http_delete(self, mocker):
+    # ------ doHttpDelete ----- #
+    def test_doHttpDelete_ok(self, mocker):
         mock_response = {
-            "responseCode" : 200
+            "responseCode": 200
         }
 
         mocker.patch(
@@ -27,9 +29,10 @@ class TestHttpUtils:
 
         assert doHttpDelete("", {}, {}) == mock_response
 
-    def test_do_http_post(self, mocker):
+    # ----- doHttpPost ----- #
+    def test_doHttpPost_ok(self, mocker):
         mock_response = {
-            "responseCode" : 200
+            "responseCode": 200
         }
 
         mocker.patch(
@@ -39,9 +42,10 @@ class TestHttpUtils:
 
         assert doHttpPost("", {}, {}, {}) == mock_response
 
-    def test_do_http_patch(self, mocker):
+    # ----- doHttpPatch ----- #
+    def test_doHttpPatch_ok(self, mocker):
         mock_response = {
-            "responseCode" : 200
+            "responseCode": 200
         }
 
         mocker.patch(
@@ -51,9 +55,10 @@ class TestHttpUtils:
 
         assert doHttpPatch("", {}, {}, {}) == mock_response
 
-    def test_do_http_put(self, mocker):
+    # ----- doHttpPut ----- #
+    def test_doHttpPut_ok(self, mocker):
         mock_response = {
-            "responseCode" : 200
+            "responseCode": 200
         }
 
         mocker.patch(

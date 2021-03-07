@@ -4,7 +4,8 @@ from apps.services.stores.RewardIdStore import reward_id_store
 
 class TestRewardService:
 
-    def test_createQuizRegistrationReward(self, mocker):
+    # ----- createQuizRegistrationReward ----- #
+    def test_createQuizRegistrationReward_ok(self, mocker):
         mocker.patch(
             'apps.services.RewardService.createReward',
             return_value="id_test"
@@ -14,6 +15,7 @@ class TestRewardService:
 
         assert reward_id_store.getRegistrationRewardId() == "id_test"
 
+    # ----- deleteQuizRegistrationReward ----- #
     def test_deleteQuizRegistrationReward(self, mocker):
         mocker.patch(
             'apps.services.RewardService.deleteReward'

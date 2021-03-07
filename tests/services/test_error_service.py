@@ -3,7 +3,8 @@ from apps.services.ErrorService import raiseError
 
 class TestErrorService:
 
-    def test_raise_error(self, mocker):
+    # ----- raiseError ----- #
+    def test_raiseError_ok(self, mocker):
         mocker.patch(
             'apps.services.ErrorService.emit'
         )

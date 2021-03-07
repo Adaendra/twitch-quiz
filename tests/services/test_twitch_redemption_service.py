@@ -11,11 +11,11 @@ class TestTwitchRedemptionService:
         mocker.patch(
             'apps.services.TwitchRedemptionService.generateRedemptionToken'
         )
-        mockResponse = mocker.patch(
+        mock_response = mocker.patch(
             'apps.services.TwitchRedemptionService.doHttpPost'
         )
-        mockResponse.return_value.status_code = 200
-        mockResponse.return_value.json.return_value = {'data': [{'id': 'random_id_test'}]}
+        mock_response.return_value.status_code = 200
+        mock_response.return_value.json.return_value = {'data': [{'id': 'random_id_test'}]}
 
         user_config_store.setBroadcasterId("id")
 
@@ -25,11 +25,11 @@ class TestTwitchRedemptionService:
         mocker.patch(
             'apps.services.TwitchRedemptionService.generateRedemptionToken'
         )
-        mockResponse = mocker.patch(
+        mock_response = mocker.patch(
             'apps.services.TwitchRedemptionService.doHttpPost'
         )
-        mockResponse.return_value.status_code = 400
-        mockResponse.return_value.json.return_value = {'data': [{'id': 'random_id_test'}]}
+        mock_response.return_value.status_code = 400
+        mock_response.return_value.json.return_value = {'data': [{'id': 'random_id_test'}]}
 
         user_config_store.setBroadcasterId("id")
 
@@ -42,10 +42,10 @@ class TestTwitchRedemptionService:
         mocker.patch(
             'apps.services.TwitchRedemptionService.generateRedemptionToken'
         )
-        mockResponse = mocker.patch(
+        mock_response = mocker.patch(
             'apps.services.TwitchRedemptionService.doHttpDelete'
         )
-        mockResponse.return_value.status_code = 204
+        mock_response.return_value.status_code = 204
 
         user_config_store.setBroadcasterId("id")
 
@@ -55,10 +55,10 @@ class TestTwitchRedemptionService:
         mocker.patch(
             'apps.services.TwitchRedemptionService.generateRedemptionToken'
         )
-        mockResponse = mocker.patch(
+        mock_response = mocker.patch(
             'apps.services.TwitchRedemptionService.doHttpDelete'
         )
-        mockResponse.return_value.status_code = 400
+        mock_response.return_value.status_code = 400
 
         user_config_store.setBroadcasterId("id")
 
@@ -71,11 +71,11 @@ class TestTwitchRedemptionService:
         mocker.patch(
             'apps.services.TwitchRedemptionService.generateRedemptionToken'
         )
-        mockResponse = mocker.patch(
+        mock_response = mocker.patch(
             'apps.services.TwitchRedemptionService.doHttpGet'
         )
-        mockResponse.return_value.status_code = 200
-        mockResponse.return_value.json.return_value = {'data': [{'id': 'random_id_test'}]}
+        mock_response.return_value.status_code = 200
+        mock_response.return_value.json.return_value = {'data': [{'id': 'random_id_test'}]}
 
         user_config_store.setBroadcasterId("id")
 
@@ -85,11 +85,11 @@ class TestTwitchRedemptionService:
         mocker.patch(
             'apps.services.TwitchRedemptionService.generateRedemptionToken'
         )
-        mockResponse = mocker.patch(
+        mock_response = mocker.patch(
             'apps.services.TwitchRedemptionService.doHttpGet'
         )
-        mockResponse.return_value.status_code = 400
-        mockResponse.return_value.json.return_value = {'data': [{'id': 'random_id_test'}]}
+        mock_response.return_value.status_code = 400
+        mock_response.return_value.json.return_value = {'data': [{'id': 'random_id_test'}]}
 
         user_config_store.setBroadcasterId("id")
 
@@ -102,10 +102,10 @@ class TestTwitchRedemptionService:
         mocker.patch(
             'apps.services.TwitchRedemptionService.generateRedemptionToken'
         )
-        mockResponse = mocker.patch(
+        mock_response = mocker.patch(
             'apps.services.TwitchRedemptionService.doHttpPatch'
         )
-        mockResponse.return_value.status_code = 200
+        mock_response.return_value.status_code = 200
 
         user_config_store.setBroadcasterId("id")
 
@@ -115,10 +115,10 @@ class TestTwitchRedemptionService:
         mocker.patch(
             'apps.services.TwitchRedemptionService.generateRedemptionToken'
         )
-        mockResponse = mocker.patch(
+        mock_response = mocker.patch(
             'apps.services.TwitchRedemptionService.doHttpPatch'
         )
-        mockResponse.return_value.status_code = 400
+        mock_response.return_value.status_code = 400
 
         user_config_store.setBroadcasterId("id")
 
