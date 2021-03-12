@@ -14,6 +14,7 @@ class TestQuizStore:
         assert quiz_store.listQuestions == []
         assert quiz_store.isPlayerCheckInOpen is False
         assert quiz_store.isQuizOnGoing is False
+        assert quiz_store.isQuestionOnGoing is False
         assert quiz_store.listContestants == []
 
     # ----- resetQuiz ----- #
@@ -24,12 +25,15 @@ class TestQuizStore:
         )
 
         quiz_store = QuizStore()
+        quiz_store.isQuestionOnGoing = True
+
         quiz_store.resetQuiz()
 
         assert quiz_store.currentQuestionIndex == 0
         assert len(quiz_store.listQuestions) == len(TEST_QUESTION_LIST)
         assert quiz_store.isPlayerCheckInOpen is True
         assert quiz_store.isQuizOnGoing is False
+        assert quiz_store.isQuestionOnGoing is False
         assert quiz_store.listContestants == []
 
         assert mock_read_json.call_count == 1

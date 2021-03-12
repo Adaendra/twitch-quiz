@@ -16,12 +16,15 @@ class QuizStore:
         self.listQuestions = []
         self.isPlayerCheckInOpen = False
         self.isQuizOnGoing = False
+        self.isQuestionOnGoing = False
         self.listContestants = []
 
     def resetQuiz(self):
         self.currentQuestionIndex = 0
         self.listQuestions = readJson(QUESTION_LIST_FILE_PATH)
         self.isPlayerCheckInOpen = True
+        self.isQuizOnGoing = False
+        self.isQuestionOnGoing = False
         self.listContestants = []
 
         random.shuffle(self.listQuestions)
