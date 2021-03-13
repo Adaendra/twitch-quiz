@@ -13,7 +13,7 @@ Documentation :
 """
 
 
-def generateRedemptionToken():
+def generateRedemptionToken(): # TODO : Définir l'ensemble des types de valeurs retournées
     """
     Generate a Twitch token for redemption scopes.
     :return: String - The Bearer Token.
