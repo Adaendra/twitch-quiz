@@ -168,3 +168,109 @@ class TestQuizController:
         assert mock_create_reward.call_args == call()
 
         assert mock_players_registration.call_count == 0
+
+    # ----- start_quiz ----- #
+    def test_start_quiz_ok(self, mocker):
+        mock_delete_quiz_registration_rewards = mocker.patch(
+            'apps.controllers.QuizController.deleteQuizRegistrationReward'
+        )
+        mock_create_quiz_answer_rewards = mocker.patch(
+            'apps.controllers.QuizController.createQuizAnswersReward'
+        )
+        mock_send_next_question = mocker.patch(
+            'apps.controllers.QuizController.sendNextQuestion'
+        )
+        mock_save_constestant_answers = mocker.patch(
+            'apps.controllers.QuizController.saveContestantsAnswer'
+        )
+
+        quiz_store.currentQuestionIndex = 0
+        quiz_store.isQuizOnGoing = False
+        quiz_store.isQuestionOnGoing = True
+
+        quizController.start_quiz()
+
+        assert quiz_store.currentQuestionIndex == 1
+        assert quiz_store.isQuizOnGoing is True
+
+        assert mock_delete_quiz_registration_rewards.call_count == 1
+        assert mock_delete_quiz_registration_rewards.call_args == call()
+
+        assert mock_create_quiz_answer_rewards.call_count == 1
+        assert mock_create_quiz_answer_rewards.call_args == call()
+
+        assert mock_send_next_question.call_count == 1
+        assert mock_send_next_question.call_args == call()
+
+        assert mock_save_constestant_answers.call_count == 1
+        assert mock_save_constestant_answers.call_args == call(True, True)
+
+    # ----- stop_quiz ----- #
+    def test_stop_quiz_ok(self, mocker):
+        mock_delete_quiz_answers_reward = mocker.patch(
+            'apps.controllers.QuizController.deleteQuizAnswersReward'
+        )
+        mock_stop_quiz = mocker.patch(
+            'apps.controllers.QuizController.sendEventStopQuiz'
+        )
+        mock_time_sleep = mocker.patch(
+            'apps.controllers.QuizController.time.sleep'
+        )
+        mock_clear_answer_reward_id = mocker.patch(
+            'apps.controllers.QuizController.clearAnswerRewardId'
+        )
+
+        quiz_store.isQuestionOnGoing = True
+        quiz_store.isQuizOnGoing = True
+
+        quizController.stop_quiz()
+
+        assert quiz_store.isQuestionOnGoing is False
+        assert quiz_store.isQuizOnGoing is False
+
+        assert mock_delete_quiz_answers_reward.call_count == 1
+        assert mock_delete_quiz_answers_reward.call_args == call()
+
+        assert mock_stop_quiz.call_count == 1
+        assert mock_stop_quiz.call_args == call()
+
+        assert mock_time_sleep.call_count == 1
+        assert mock_time_sleep.call_args == call(10)
+
+        assert mock_clear_answer_reward_id.call_count == 1
+        assert mock_clear_answer_reward_id.call_args == call()
+
+    # ----- reveal_answer ----- #
+
+    # ----- next_question ----- #
+    def test_next_question_ok(self, mocker):
+        mock_time_sleep = mocker.patch(
+            'apps.controllers.QuizController.time.sleep'
+        )
+        mock_send_next_question = mocker.patch(
+            'apps.controllers.QuizController.sendNextQuestion'
+        )
+        mock_save_constestant_answers = mocker.patch(
+            'apps.controllers.QuizController.saveContestantsAnswer'
+        )
+
+        quiz_store.currentQuestionIndex = 5
+        quiz_store.isQuizOnGoing = False
+        quiz_store.isQuestionOnGoing = False
+
+        quizController.next_question()
+
+        assert quiz_store.currentQuestionIndex == 6
+        assert quiz_store.isQuizOnGoing is True
+        assert quiz_store.isQuestionOnGoing is True
+
+        assert mock_time_sleep.call_count == 1
+        assert mock_time_sleep.call_args == call(1)
+
+        assert mock_send_next_question.call_count == 1
+        assert mock_send_next_question.call_args == call()
+
+        assert mock_save_constestant_answers.call_count == 1
+        assert mock_save_constestant_answers.call_args == call(True, True)
+
+
