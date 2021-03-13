@@ -10,7 +10,7 @@ Documentation: https://dev.twitch.tv/docs/api/reference#get-streams
 """
 
 
-def retrieveBroadcastId(bearer_token, client_id):
+def retrieveBroadcastId(bearer_token, client_id) -> str:
     """
     Retrieve the BroadcastId.
     :param bearer_token: String - Bearer auth token.

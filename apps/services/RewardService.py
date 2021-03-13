@@ -13,7 +13,7 @@ Contains all methods related to Twitch Rewards.
 
 
 # ----- Quiz Registration ----- #
-def createQuizRegistrationReward():
+def createQuizRegistrationReward() -> None:
     """
     Create the registration reward to allow viewers to be a quiz contestant.
     """
@@ -26,7 +26,7 @@ def createQuizRegistrationReward():
     reward_id_store.setRegistrationRewardId(registration_reward_id)
 
 
-def deleteQuizRegistrationReward():
+def deleteQuizRegistrationReward() -> None:
     """
     Delete the registration reward to allow viewers to be a quiz contestant.
     Then clear the value from the store.

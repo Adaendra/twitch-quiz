@@ -3,7 +3,6 @@ from apps.constants.SocketMessageTypeConstants import SOCKET_EVENT_QUIZ_NEXT_QUE
     SOCKET_EVENT_STATS_ANSWERS_ONGOING, SOCKET_EVENT_STATS_ANSWERS_QUESTION, SOCKET_EVENT_QUIZ_STOP
 from apps.services.stores.QuizStore import quiz_store
 
-
 """
 FrontEndEventSenderService
 --------------------------
@@ -49,6 +48,7 @@ def sendStatsAnswerQuestion() -> None:
         SOCKET_EVENT_STATS_ANSWERS_QUESTION,
         {}
     )
+
 
 def sendEventStopQuiz() -> None:
     """
