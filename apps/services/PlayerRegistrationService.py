@@ -6,6 +6,9 @@ from apps.services.stores.UserConfigStore import user_config_store
 from apps.constants.RewardsConstants import REGISTRATION_REWARD_STATUS_FULFILLED, REGISTRATION_REWARD_STATUS_CANCELLED
 from apps import emit
 from apps.constants.SocketMessageTypeConstants import SOCKET_EVENT_CONSTESTANTS_CHECK_IN_STATS
+import time
+import sys
+sys.setrecursionlimit(150000)
 
 """
 PlayerRegistrationService
@@ -50,6 +53,9 @@ def registerPlayersFromRegistrationReward(is_check_in_open):
                 )
 
         sendContestantCheckInStatistics()
+
+        # Wait a little bit
+        time.sleep(0.5)
 
         # Continue to register player
         registerPlayersFromRegistrationReward(quiz_store.isPlayerCheckInOpen)
