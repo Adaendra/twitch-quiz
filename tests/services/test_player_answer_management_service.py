@@ -22,6 +22,10 @@ class TestPlayerAnswerManagementService:
             'apps.services.PlayerAnswerManagementService.time.sleep'
         )
 
+        mock_send_stats = mocker.patch(
+            'apps.services.PlayerAnswerManagementService.sendStatsAnswersOngoing'
+        )
+
         reward_id_store.setResponseARewardId("id_a")
         reward_id_store.setResponseBRewardId("id_b")
         reward_id_store.setResponseCRewardId("id_c")
@@ -43,6 +47,9 @@ class TestPlayerAnswerManagementService:
         assert mock_time_sleep.call_count == 1
         assert mock_time_sleep.call_args == call(0.5)
 
+        assert mock_send_stats.call_count == 1
+        assert mock_send_stats.call_args == call()
+
     def test_saveContestantsAnswer_ok_more25(self, mocker):
         mock_process_players_answer = mocker.patch(
             'apps.services.PlayerAnswerManagementService.processPlayersAnswer',
@@ -51,6 +58,10 @@ class TestPlayerAnswerManagementService:
 
         mock_time_sleep = mocker.patch(
             'apps.services.PlayerAnswerManagementService.time.sleep'
+        )
+
+        mock_send_stats = mocker.patch(
+            'apps.services.PlayerAnswerManagementService.sendStatsAnswersOngoing'
         )
 
         reward_id_store.setResponseARewardId("id_a")
@@ -73,6 +84,9 @@ class TestPlayerAnswerManagementService:
 
         assert mock_time_sleep.call_count == 1
         assert mock_time_sleep.call_args == call(0.2)
+
+        assert mock_send_stats.call_count == 1
+        assert mock_send_stats.call_args == call()
 
     # ----- processPlayersAnswer ----- #
     def test_processPlayersAnswer_ok_questionOngoing(self, mocker):

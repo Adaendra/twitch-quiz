@@ -4,6 +4,7 @@ from apps.services.stores.QuizStore import quiz_store
 from apps.constants.RewardsConstants import REGISTRATION_REWARD_STATUS_CANCELLED, REGISTRATION_REWARD_STATUS_FULFILLED
 from apps.constants.QuizConstants import SELECTED_ANSWER_A, SELECTED_ANSWER_B, SELECTED_ANSWER_C, SELECTED_ANSWER_D
 from apps.models.QuizContestant import QuizContestant
+from apps.services.FrontEndEventSenderService import sendStatsAnswersOngoing
 import time
 import sys
 
@@ -40,6 +41,9 @@ def saveContestantsAnswer(is_quiz_on_going, is_question_on_going) -> None:
             time.sleep(0.5)
         else:
             time.sleep(0.2)
+
+        # Send stats to know number of user who answered
+        sendStatsAnswersOngoing()
 
         saveContestantsAnswer(quiz_store.isQuizOnGoing, quiz_store.isQuestionOnGoing)
 
