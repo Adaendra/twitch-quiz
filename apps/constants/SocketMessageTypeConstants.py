@@ -1,5 +1,6 @@
 # REQUESTS
 SOCKET_REQUEST_QUIZ_INIT = "request:quiz:init"
+SOCKET_REQUEST_START_QUIZ = "request:quiz:start"
 
 # EVENTS
 SOCKET_EVENT_NOTIFICATION_MESSAGE = "event:notification:send"
