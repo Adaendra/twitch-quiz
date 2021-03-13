@@ -71,7 +71,7 @@ def createQuizAnswersReward():
     reward_id_store.setResponseDRewardId(response_d_reward_id)
 
 
-def deleteQuizAnswersReward():
+def deleteQuizAnswersReward(): # TODO : Définir l'ensemble des types de valeurs retournées
     # -- A
     deleteReward(reward_id_store.getResponseARewardId())
 
