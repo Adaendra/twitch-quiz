@@ -1,7 +1,7 @@
 from unittest.mock import call
 
 from apps.services.RewardService import createQuizRegistrationReward, deleteQuizRegistrationReward, \
-    createQuizAnswersReward, deleteQuizAnswersReward
+    createQuizAnswersReward, deleteQuizAnswersReward, clearAnswerRewardId
 from apps.services.stores.RewardIdStore import reward_id_store
 from apps.constants.RewardsConstants import PLAYER_REGISTRATION_REWARD_PARAM_NAME, PLAYER_REGISTRATION_REWARD_TITLE, \
     RESPONSE_A_REWARD_TITLE, RESPONSE_B_REWARD_TITLE, RESPONSE_C_REWARD_TITLE, RESPONSE_D_REWARD_TITLE
@@ -79,12 +79,26 @@ class TestRewardService:
 
         deleteQuizAnswersReward()
 
-        assert reward_id_store.getResponseARewardId() is None
-        assert reward_id_store.getResponseBRewardId() is None
-        assert reward_id_store.getResponseCRewardId() is None
-        assert reward_id_store.getResponseDRewardId() is None
+        assert reward_id_store.getResponseARewardId() == "A"
+        assert reward_id_store.getResponseBRewardId() == "B"
+        assert reward_id_store.getResponseCRewardId() == "C"
+        assert reward_id_store.getResponseDRewardId() == "D"
 
         assert mock_delete_reward.call_count == 4
         assert mock_delete_reward.call_args_list == [
             call("A"), call("B"), call("C"), call("D")
         ]
+
+    # ----- clearAnswerRewardId ----- #
+    def test_clearAnswerRewardId_ok(self):
+        reward_id_store.setResponseARewardId("A")
+        reward_id_store.setResponseBRewardId("B")
+        reward_id_store.setResponseCRewardId("C")
+        reward_id_store.setResponseDRewardId("D")
+
+        clearAnswerRewardId()
+
+        assert reward_id_store.getResponseARewardId() is None
+        assert reward_id_store.getResponseBRewardId() is None
+        assert reward_id_store.getResponseCRewardId() is None
+        assert reward_id_store.getResponseDRewardId() is None

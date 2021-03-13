@@ -37,7 +37,10 @@ def deleteQuizRegistrationReward():
 
 
 # ----- Quiz Answers ----- #
-def createQuizAnswersReward():
+def createQuizAnswersReward() -> None:
+    """
+    Create the quiz answers rewards to allow player to answer.
+    """
     # -- A
     response_a_reward_id = createReward(
         RESPONSE_A_REWARD_TITLE,
@@ -71,23 +74,22 @@ def createQuizAnswersReward():
     reward_id_store.setResponseDRewardId(response_d_reward_id)
 
 
-def deleteQuizAnswersReward(): # TODO : Définir l'ensemble des types de valeurs retournées
-    # -- A
+def deleteQuizAnswersReward() -> None:
+    """
+    Delete all quiz answers rewards.
+    """
     deleteReward(reward_id_store.getResponseARewardId())
-
-    reward_id_store.setResponseARewardId(None)
-
-    # -- B
     deleteReward(reward_id_store.getResponseBRewardId())
-
-    reward_id_store.setResponseBRewardId(None)
-
-    # -- C
     deleteReward(reward_id_store.getResponseCRewardId())
-
-    reward_id_store.setResponseCRewardId(None)
-
-    # -- D
     deleteReward(reward_id_store.getResponseDRewardId())
 
+
+def clearAnswerRewardId() -> None:
+    """
+    Clear responses reward id from the store.
+    """
+    reward_id_store.setResponseARewardId(None)
+    reward_id_store.setResponseBRewardId(None)
+    reward_id_store.setResponseCRewardId(None)
     reward_id_store.setResponseDRewardId(None)
+
