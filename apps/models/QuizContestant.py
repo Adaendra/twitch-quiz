@@ -7,7 +7,7 @@ class QuizContestant:
     """
     contestant_name: str = ""
     number_lives: int = 0
-    selected_answer: str = ""
+    selected_answer: str = None
 
     def __init__(self, contestant_name, number_lives):
         self.contestant_name = contestant_name
