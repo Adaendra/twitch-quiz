@@ -18,7 +18,7 @@ Contains all methods to manage Player registration.
 """
 
 
-def registerPlayersFromRegistrationReward(is_check_in_open):
+def registerPlayersFromRegistrationReward(is_check_in_open) -> None:
     """
     If the Check-in is open, check is there new contestants for the quiz from the registration reward.
     If they are not already registered, they will be added to the list.
@@ -61,7 +61,7 @@ def registerPlayersFromRegistrationReward(is_check_in_open):
         registerPlayersFromRegistrationReward(quiz_store.isPlayerCheckInOpen)
 
 
-def sendContestantCheckInStatistics():
+def sendContestantCheckInStatistics() -> None:
     """
     Send contestants check-in statistics to front-end clients.
     """
