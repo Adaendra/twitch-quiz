@@ -1,4 +1,3 @@
-from subprocess import call
 from unittest.mock import call
 from apps.constants.RewardsConstants import PLAYER_REGISTRATION_REWARD_PARAM_NAME
 

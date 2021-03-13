@@ -1,5 +1,5 @@
 from unittest.mock import call
-from apps.constants.SocketMessageTypeConstants import SOCKET_EVENT_CONSTESTANTS_CHECK_IN_STATS
+from apps.constants.SocketMessageTypeConstants import SOCKET_EVENT_STATS_CONSTESTANTS_CHECK_IN
 from apps.services.stores.RewardIdStore import reward_id_store
 from apps.services.PlayerRegistrationService import registerPlayersFromRegistrationReward, quiz_store, sendContestantCheckInStatistics
 from apps.constants.RewardsConstants import REGISTRATION_REWARD_STATUS_FULFILLED, REGISTRATION_REWARD_STATUS_CANCELLED
@@ -54,6 +54,6 @@ class TestPlayerRegistrationService:
         sendContestantCheckInStatistics()
 
         assert mock_emit.call_count == 1
-        assert mock_emit.call_args == call(SOCKET_EVENT_CONSTESTANTS_CHECK_IN_STATS, {
+        assert mock_emit.call_args == call(SOCKET_EVENT_STATS_CONSTESTANTS_CHECK_IN, {
             "number_contestants": 4
         })

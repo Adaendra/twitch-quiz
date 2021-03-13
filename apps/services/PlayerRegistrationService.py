@@ -5,7 +5,7 @@ from apps.models.QuizContestant import QuizContestant
 from apps.services.stores.UserConfigStore import user_config_store
 from apps.constants.RewardsConstants import REGISTRATION_REWARD_STATUS_FULFILLED, REGISTRATION_REWARD_STATUS_CANCELLED
 from apps import emit
-from apps.constants.SocketMessageTypeConstants import SOCKET_EVENT_CONSTESTANTS_CHECK_IN_STATS
+from apps.constants.SocketMessageTypeConstants import SOCKET_EVENT_STATS_CONSTESTANTS_CHECK_IN
 import time
 import sys
 sys.setrecursionlimit(150000)
@@ -65,6 +65,6 @@ def sendContestantCheckInStatistics() -> None:
     """
     Send contestants check-in statistics to front-end clients.
     """
-    emit(SOCKET_EVENT_CONSTESTANTS_CHECK_IN_STATS, {
+    emit(SOCKET_EVENT_STATS_CONSTESTANTS_CHECK_IN, {
         "number_contestants": len(quiz_store.listContestants)
     })
