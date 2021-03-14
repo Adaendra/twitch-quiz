@@ -10,7 +10,7 @@ Contains all methods associated to the error management.
 """
 
 
-def raiseError(error_message):
+def raiseError(error_message) -> None:
     """
     Raise an error and send it to connected users.
     :param error_message: String - The error message to raise.

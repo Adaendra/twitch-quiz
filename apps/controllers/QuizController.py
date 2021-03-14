@@ -1,13 +1,16 @@
 from apps.controllers.ConfigController import configController
 from apps.services.ErrorService import raiseError
-from apps.services.RewardService import createQuizRegistrationReward, deleteQuizRegistrationReward
+from apps.services.RewardService import createQuizRegistrationReward, deleteQuizRegistrationReward, \
+    createQuizAnswersReward, deleteQuizAnswersReward, clearAnswerRewardId
 from apps.services.stores.QuizStore import quiz_store
 import logging
 from apps.services.TwitchStreamService import retrieveBroadcastId
 from apps.services.TwitchAuthService import generateRedemptionToken
 from apps.services.stores.UserConfigStore import user_config_store
 from apps.services.PlayerRegistrationService import registerPlayersFromRegistrationReward
-
+from apps.services.PlayerAnswerManagementService import saveContestantsAnswer
+from apps.services.FrontEndEventSenderService import sendNextQuestion, sendStatsAnswerQuestion, sendEventStopQuiz
+import time
 
 class QuizController:
     """
@@ -21,10 +24,9 @@ class QuizController:
     def __init__(self):
         pass
 
-    def init_quiz(self):
+    def init_quiz(self) -> None:
         """
         Initialize a quiz and open registrations.
-        :return:
         """
         # Block if account is not setup to connect to the twitch api
         if not configController.isAllRequiredConfigDefined():
@@ -48,33 +50,83 @@ class QuizController:
                 self.logger.error("{0}".format(err))
                 raiseError("An error appears during the quiz initialization")
 
-
-    def start_quiz(self):
+    def start_quiz(self) -> None:
+        """
+        Close registration and start a quiz.
+        """
         # Close Player Registration
         deleteQuizRegistrationReward()
-        # TODO : Start quiz
-        # TODO : Set the question index to 1
-        # TODO : Start process to listen answers
-        pass
 
-    def stop_quiz(self): # TODO : To comment - Work in Progress
-        # TODO : Stop quiz
-        # TODO : Delete rewards
-        pass
+        # Start quiz
+        quiz_store.isQuizOnGoing = True
 
-    def reveal_answer(self):
-        # TODO : Stop process to listen answers
+        # Set the question index to 1
+        quiz_store.currentQuestionIndex = 1
+
+        # Create answers rewards to allow users to select their response.
+        createQuizAnswersReward()
+
+        # Send event to show the next question
+        sendNextQuestion()
+
+        # Start process to listen answers
+        saveContestantsAnswer(quiz_store.isQuizOnGoing, quiz_store.isQuestionOnGoing)
+
+    def stop_quiz(self) -> None:
+        """
+        Stop the quiz.
+        """
+        # Delete answers rewards
+        deleteQuizAnswersReward()
+
+        # Send event to close quiz
+        sendEventStopQuiz()
+
+        # Stop process to listen answers
+        quiz_store.isQuestionOnGoing = False
+
+        # Wait a little bit to manage all last redemptions received
+        time.sleep(10)
+
+        quiz_store.isQuizOnGoing = False
+
+        # Clear answers rewards id
+        clearAnswerRewardId()
+
+    def reveal_answer(self) -> None:
+        # Deny to save contestants answers
+        quiz_store.isQuestionOnGoing = False
+
         # TODO : Send event to reveal the answer
         # TODO : Process the answers from players
-        # TODO : Send statistics
-        # TODO : Send event to allow to go to the next question
-        pass
+        # Send statistics
+        sendStatsAnswerQuestion()
 
-    def next_question(self):
-        # TODO : Update the index
-        # TODO : Send the new question
-        # TODO : Start process to listen answers
-        pass
+        # TODO : Send event to allow to go to the next question
+        #  or if only one player is alive, stop the quiz
+        #  or if we don't have more questions
+
+    def next_question(self) -> None:
+        """
+        Advance the quiz to the next question.
+        """
+
+        # Wait a little bit to reset the recursive count
+        quiz_store.isQuizOnGoing = False
+        time.sleep(1)
+
+        # Update the index
+        quiz_store.currentQuestionIndex = quiz_store.currentQuestionIndex + 1
+
+        # Send event to show the next question
+        sendNextQuestion()
+
+        # Allow to save contestants answers
+        quiz_store.isQuizOnGoing = True
+        quiz_store.isQuestionOnGoing = True
+
+        # Start process to listen answers
+        saveContestantsAnswer(quiz_store.isQuizOnGoing, quiz_store.isQuestionOnGoing)
 
 
 quizController = QuizController()

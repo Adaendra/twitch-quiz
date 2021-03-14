@@ -5,7 +5,10 @@ from apps.models.QuizContestant import QuizContestant
 from apps.services.stores.UserConfigStore import user_config_store
 from apps.constants.RewardsConstants import REGISTRATION_REWARD_STATUS_FULFILLED, REGISTRATION_REWARD_STATUS_CANCELLED
 from apps import emit
-from apps.constants.SocketMessageTypeConstants import SOCKET_EVENT_CONSTESTANTS_CHECK_IN_STATS
+from apps.constants.SocketMessageTypeConstants import SOCKET_EVENT_STATS_CONSTESTANTS_CHECK_IN
+import time
+import sys
+sys.setrecursionlimit(150000)
 
 """
 PlayerRegistrationService
@@ -15,7 +18,7 @@ Contains all methods to manage Player registration.
 """
 
 
-def registerPlayersFromRegistrationReward(is_check_in_open):
+def registerPlayersFromRegistrationReward(is_check_in_open) -> None:
     """
     If the Check-in is open, check is there new contestants for the quiz from the registration reward.
     If they are not already registered, they will be added to the list.
@@ -51,14 +54,17 @@ def registerPlayersFromRegistrationReward(is_check_in_open):
 
         sendContestantCheckInStatistics()
 
+        # Wait a little bit
+        time.sleep(0.5)
+
         # Continue to register player
         registerPlayersFromRegistrationReward(quiz_store.isPlayerCheckInOpen)
 
 
-def sendContestantCheckInStatistics():
+def sendContestantCheckInStatistics() -> None:
     """
     Send contestants check-in statistics to front-end clients.
     """
-    emit(SOCKET_EVENT_CONSTESTANTS_CHECK_IN_STATS, {
+    emit(SOCKET_EVENT_STATS_CONSTESTANTS_CHECK_IN, {
         "number_contestants": len(quiz_store.listContestants)
     })

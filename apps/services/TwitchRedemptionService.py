@@ -2,6 +2,7 @@ from apps.services.utils.HttpUtils import doHttpPost, doHttpDelete, doHttpGet, d
 from apps.services.stores.UserConfigStore import user_config_store
 from apps.services.TwitchAuthService import generateRedemptionToken
 from apps.constants.TwitchURLConstants import CUSTOM_REWARD_URL, CUSTOM_REWARD_REGISTRATION_URL
+from apps.models.RewardRedemption import RewardRedemption
 
 """
 TwitchRedemptionService
@@ -12,7 +13,7 @@ Documentation: https://dev.twitch.tv/docs/api/reference
 """
 
 
-def createReward(title, cost):
+def createReward(title, cost) -> str:
     """
     Create a custom reward.
     Documentation: https://dev.twitch.tv/docs/api/reference#create-custom-rewards
@@ -44,7 +45,7 @@ def createReward(title, cost):
         raise Exception('An error occurs during the reward creation. Status code : {0}'.format(response.status_code))
 
 
-def deleteReward(reward_id):
+def deleteReward(reward_id) -> None:
     """
     Delete a custom reward.
     Documentation: https://dev.twitch.tv/docs/api/reference#delete-custom-reward
@@ -67,7 +68,7 @@ def deleteReward(reward_id):
         raise Exception('An error occurs during the reward deletion. Status code : {0}'.format(response.status_code))
 
 
-def getUnfulfilledRewardRedemptions(reward_id):
+def getUnfulfilledRewardRedemptions(reward_id) -> list[RewardRedemption]:
     """
     Retrieve a list a reward redemptions which are not fulfilled or cancelled.
     Documentation: https://dev.twitch.tv/docs/api/reference#get-custom-reward-redemption
@@ -96,7 +97,7 @@ def getUnfulfilledRewardRedemptions(reward_id):
         return response.json()['data']
 
 
-def updateRewardRedemptionStatus(reward_id, redemption_id, new_redemption_status):
+def updateRewardRedemptionStatus(reward_id, redemption_id, new_redemption_status) -> None:
     """
     Update the status of a reward redemption.
     Documentation: https://dev.twitch.tv/docs/api/reference#update-redemption-status

@@ -13,7 +13,7 @@ class ConfigController:
     def __init__(self):
         pass
 
-    def isAllRequiredConfigDefined(self):
+    def isAllRequiredConfigDefined(self) -> None:
         """
         Returns true if all the required configs are defined. If at least one config is missing, returns false.
         :param self:
