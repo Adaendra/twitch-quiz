@@ -1,6 +1,6 @@
 # Twitch-Quiz
 
-Project made for the Twitch Channel Points API Hackathon.
+Project made to test Python and Vue.js
 
 ## Description
 Do you like to play quiz?
