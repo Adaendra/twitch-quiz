@@ -1,6 +1,6 @@
 # Twitch-Quiz
 
-Project made to test Python and Vue.js
+Project made to test Python and Vue.js. There are no ambition to manage it after.
 
 ## Description
 Do you like to play quiz?
