@@ -2,12 +2,13 @@ from unittest.mock import call
 
 from apps.constants.SocketMessageTypeConstants import SOCKET_EVENT_QUIZ_NEXT_QUESTION, \
     SOCKET_EVENT_STATS_ANSWERS_ONGOING, SOCKET_EVENT_STATS_ANSWERS_QUESTION, SOCKET_EVENT_QUIZ_STOP, \
-    SOCKET_EVENT_REVEAL_ANSWER
+    SOCKET_EVENT_REVEAL_ANSWER, SOCKET_EVENT_RANKING
 from apps.services.stores.QuizStore import quiz_store
 from apps.models.Question import Question
 from apps.models.QuizContestant import QuizContestant
 from apps.services.FrontEndEventSenderService import sendNextQuestion, sendStatsAnswerQuestion, \
-    sendStatsAnswersOngoing, sendEventStopQuiz, sendEventRevealAnswer
+    sendStatsAnswersOngoing, sendEventStopQuiz, sendEventRevealAnswer, sendQuizRanking
+from apps.models.Ranking import Ranking
 
 
 class TestFrontEndEventSenderService:
@@ -128,3 +129,32 @@ class TestFrontEndEventSenderService:
 
         assert mock_emit.call_count == 1
         assert mock_emit.call_args == call(SOCKET_EVENT_QUIZ_STOP)
+
+    # ----- sendQuizRanking ----- #
+    def test_sendQuizRanking_ok(self, mocker):
+        mock_emit = mocker.patch(
+            'apps.services.FrontEndEventSenderService.emit'
+        )
+
+        ranking = Ranking()
+        ranking.first = "first"
+        ranking.second = "second"
+        ranking.third = "third"
+
+        sendQuizRanking(ranking)
+
+        assert mock_emit.call_count == 1
+        assert mock_emit.call_args == call(SOCKET_EVENT_RANKING, {
+            "first": ranking.first,
+            "second": ranking.second,
+            "third": ranking.third,
+            "fourth": ranking.fourth,
+            "fifth": ranking.fifth,
+            "sixth": ranking.sixth,
+            "seventh": ranking.seventh,
+            "eighth": ranking.eighth,
+            "ninth": ranking.ninth,
+            "tenth": ranking.tenth
+        })
+
+

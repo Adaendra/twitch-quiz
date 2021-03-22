@@ -1,9 +1,10 @@
 from apps import emit
 from apps.constants.SocketMessageTypeConstants import SOCKET_EVENT_QUIZ_NEXT_QUESTION, \
     SOCKET_EVENT_STATS_ANSWERS_ONGOING, SOCKET_EVENT_STATS_ANSWERS_QUESTION, SOCKET_EVENT_QUIZ_STOP, \
-    SOCKET_EVENT_REVEAL_ANSWER
+    SOCKET_EVENT_REVEAL_ANSWER, SOCKET_EVENT_RANKING
 from apps.constants.QuizConstants import SELECTED_ANSWER_A, SELECTED_ANSWER_B, SELECTED_ANSWER_C, SELECTED_ANSWER_D
 from apps.services.stores.QuizStore import quiz_store
+from apps.models.Ranking import Ranking
 
 """
 FrontEndEventSenderService
@@ -86,4 +87,25 @@ def sendEventStopQuiz() -> None:
     """
     emit(
         SOCKET_EVENT_QUIZ_STOP
+    )
+
+
+def sendQuizRanking(ranking: Ranking) -> None:
+    """
+    Send an event with the ranking.
+    """
+    emit(
+        SOCKET_EVENT_RANKING,
+        {
+            "first": ranking.first,
+            "second": ranking.second,
+            "third": ranking.third,
+            "fourth": ranking.fourth,
+            "fifth": ranking.fifth,
+            "sixth": ranking.sixth,
+            "seventh": ranking.seventh,
+            "eighth": ranking.eighth,
+            "ninth": ranking.ninth,
+            "tenth": ranking.tenth
+        }
     )
