@@ -24,3 +24,5 @@ class QuizRoutes(object):
         Start quiz.
         """
         quizController.start_quiz()
+
+    # TODO: Quand quelqu'un se connecte, on envoie les informations sur la question en cours
