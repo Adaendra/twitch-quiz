@@ -2,12 +2,14 @@ from unittest.mock import call
 
 from apps.constants.SocketMessageTypeConstants import SOCKET_EVENT_QUIZ_NEXT_QUESTION, \
     SOCKET_EVENT_STATS_ANSWERS_ONGOING, SOCKET_EVENT_STATS_ANSWERS_QUESTION, SOCKET_EVENT_QUIZ_STOP, \
-    SOCKET_EVENT_REVEAL_ANSWER, SOCKET_EVENT_RANKING
+    SOCKET_EVENT_REVEAL_ANSWER, SOCKET_EVENT_RANKING, SOCKET_EVENT_QUIZ_STOP_NO_WINNER, SOCKET_EVENT_QUIZ_STOP_WINNER, \
+    SOCKET_EVENT_QUIZ_STOP_NO_QUESTIONS, SOCKET_EVENT_QUIZ_CONTINUE
 from apps.services.stores.QuizStore import quiz_store
 from apps.models.Question import Question
 from apps.models.QuizContestant import QuizContestant
 from apps.services.FrontEndEventSenderService import sendNextQuestion, sendStatsAnswerQuestion, \
-    sendStatsAnswersOngoing, sendEventStopQuiz, sendEventRevealAnswer, sendQuizRanking
+    sendStatsAnswersOngoing, sendEventStopQuiz, sendEventRevealAnswer, sendQuizRanking, sendEventStopQuizNoWinner, \
+    sendEventContinueQuiz, sendEventStopQuizNoMoreQuestions, sendEventStopQuizWinner
 from apps.models.Ranking import Ranking
 
 
@@ -156,5 +158,53 @@ class TestFrontEndEventSenderService:
             "ninth": ranking.ninth,
             "tenth": ranking.tenth
         })
+
+    # ----- sendEventStopQuizNoWinner ----- #
+    def test_sendEventStopQuizNoWinner_ok(self, mocker):
+        mock_emit = mocker.patch(
+            'apps.services.FrontEndEventSenderService.emit'
+        )
+
+        sendEventStopQuizNoWinner()
+
+        assert mock_emit.call_count == 1
+        assert mock_emit.call_args == call(SOCKET_EVENT_QUIZ_STOP_NO_WINNER)
+
+    # ----- sendEventStopQuizWinner ----- #
+    def test_sendEventStopQuizWinner_ok(self, mocker):
+        mock_emit = mocker.patch(
+            'apps.services.FrontEndEventSenderService.emit'
+        )
+
+        quiz_store.listContestants = [
+            QuizContestant("zizou", 2)
+        ]
+
+        sendEventStopQuizWinner()
+
+        assert mock_emit.call_count == 1
+        assert mock_emit.call_args == call(SOCKET_EVENT_QUIZ_STOP_WINNER, {"winner": "zizou"})
+
+    # ----- sendEventStopQuizNoMoreQuestions ----- #
+    def test_sendEventStopQuizNoMoreQuestions_ok(self, mocker):
+        mock_emit = mocker.patch(
+            'apps.services.FrontEndEventSenderService.emit'
+        )
+
+        sendEventStopQuizNoMoreQuestions()
+
+        assert mock_emit.call_count == 1
+        assert mock_emit.call_args == call(SOCKET_EVENT_QUIZ_STOP_NO_QUESTIONS)
+
+    # ----- sendEventContinueQuiz ----- #
+    def test_sendEventContinueQuiz_ok(self, mocker):
+        mock_emit = mocker.patch(
+            'apps.services.FrontEndEventSenderService.emit'
+        )
+
+        sendEventContinueQuiz()
+
+        assert mock_emit.call_count == 1
+        assert mock_emit.call_args == call(SOCKET_EVENT_QUIZ_CONTINUE)
 
 

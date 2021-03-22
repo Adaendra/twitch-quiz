@@ -1,7 +1,8 @@
 from apps import emit
 from apps.constants.SocketMessageTypeConstants import SOCKET_EVENT_QUIZ_NEXT_QUESTION, \
     SOCKET_EVENT_STATS_ANSWERS_ONGOING, SOCKET_EVENT_STATS_ANSWERS_QUESTION, SOCKET_EVENT_QUIZ_STOP, \
-    SOCKET_EVENT_REVEAL_ANSWER, SOCKET_EVENT_RANKING
+    SOCKET_EVENT_REVEAL_ANSWER, SOCKET_EVENT_RANKING, SOCKET_EVENT_QUIZ_STOP_NO_WINNER, SOCKET_EVENT_QUIZ_STOP_WINNER, \
+    SOCKET_EVENT_QUIZ_STOP_NO_QUESTIONS, SOCKET_EVENT_QUIZ_CONTINUE
 from apps.constants.QuizConstants import SELECTED_ANSWER_A, SELECTED_ANSWER_B, SELECTED_ANSWER_C, SELECTED_ANSWER_D
 from apps.services.stores.QuizStore import quiz_store
 from apps.models.Ranking import Ranking
@@ -108,4 +109,43 @@ def sendQuizRanking(ranking: Ranking) -> None:
             "ninth": ranking.ninth,
             "tenth": ranking.tenth
         }
+    )
+
+
+def sendEventStopQuizNoWinner() -> None:
+    """
+    Send an event to stop the quiz because everyone is eliminated.
+    """
+    emit(
+        SOCKET_EVENT_QUIZ_STOP_NO_WINNER
+    )
+
+
+def sendEventStopQuizWinner() -> None:
+    """
+    Send an event to stop the quiz because only one player is alive.
+    """
+    emit(
+        SOCKET_EVENT_QUIZ_STOP_WINNER,
+        {
+            "winner": quiz_store.listContestants[0].contestant_name
+        }
+    )
+
+
+def sendEventStopQuizNoMoreQuestions() -> None:
+    """
+    Send an event to stop the quiz because there are no other questions available.
+    """
+    emit(
+        SOCKET_EVENT_QUIZ_STOP_NO_QUESTIONS
+    )
+
+
+def sendEventContinueQuiz() -> None:
+    """
+    Send an event to continue the quiz when all the answers have been processed.
+    """
+    emit(
+        SOCKET_EVENT_QUIZ_CONTINUE
     )
