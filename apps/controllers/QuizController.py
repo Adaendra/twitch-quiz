@@ -9,8 +9,13 @@ from apps.services.TwitchAuthService import generateRedemptionToken
 from apps.services.stores.UserConfigStore import user_config_store
 from apps.services.PlayerRegistrationService import registerPlayersFromRegistrationReward
 from apps.services.PlayerAnswerManagementService import saveContestantsAnswer
-from apps.services.FrontEndEventSenderService import sendNextQuestion, sendStatsAnswerQuestion, sendEventStopQuiz
+from apps.services.FrontEndEventSenderService import sendNextQuestion, sendStatsAnswerQuestion, sendEventStopQuiz, \
+    sendEventRevealAnswer, sendQuizRanking, sendEventStopQuizNoWinner, sendEventStopQuizWinner, \
+    sendEventStopQuizNoMoreQuestions, sendEventContinueQuiz
+from apps.services.AnswerProcessorService import processContestantAnswers
+from apps.services.RankingService import calculateRankings
 import time
+
 
 class QuizController:
     """
@@ -97,14 +102,30 @@ class QuizController:
         # Deny to save contestants answers
         quiz_store.isQuestionOnGoing = False
 
-        # TODO : Send event to reveal the answer
-        # TODO : Process the answers from players
+        # Send event to reveal the answer
+        sendEventRevealAnswer()
+
         # Send statistics
         sendStatsAnswerQuestion()
 
-        # TODO : Send event to allow to go to the next question
-        #  or if only one player is alive, stop the quiz
-        #  or if we don't have more questions
+        # Process the answers from players
+        processContestantAnswers()
+
+        # Calculate rankings
+        ranking = calculateRankings()
+
+        # Send ranking
+        sendQuizRanking(ranking)
+
+        # Send event to allow to go to the next question or not
+        if len(quiz_store.listContestants) == 0:
+            sendEventStopQuizNoWinner()
+        elif len(quiz_store.listContestants) == 1:
+            sendEventStopQuizWinner()
+        elif quiz_store.currentQuestionIndex >= len(quiz_store.listQuestions):
+            sendEventStopQuizNoMoreQuestions()
+        else:
+            sendEventContinueQuiz()
 
     def next_question(self) -> None:
         """

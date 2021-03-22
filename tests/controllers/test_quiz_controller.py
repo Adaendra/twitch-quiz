@@ -1,6 +1,9 @@
 from unittest.mock import call
 from apps.services.stores.QuizStore import quiz_store
 from apps.controllers.QuizController import quizController
+from apps.models.QuizContestant import QuizContestant
+from apps.models.Ranking import Ranking
+from apps.models.Question import Question
 
 
 class TestQuizController:
@@ -241,6 +244,272 @@ class TestQuizController:
         assert mock_clear_answer_reward_id.call_args == call()
 
     # ----- reveal_answer ----- #
+    def test_reveal_answer_no_winner(self, mocker):
+        ranking = Ranking()
+
+        quiz_store.listContestants = []
+
+        mock_send_event_reveal_answer = mocker.patch(
+            'apps.controllers.QuizController.sendEventRevealAnswer'
+        )
+        mock_send_stats_answer_question = mocker.patch(
+            'apps.controllers.QuizController.sendStatsAnswerQuestion'
+        )
+        mock_process_contestant_answers = mocker.patch(
+            'apps.controllers.QuizController.processContestantAnswers'
+        )
+        mock_calculate_rankings = mocker.patch(
+            'apps.controllers.QuizController.calculateRankings',
+            return_value=ranking
+        )
+        mock_send_quiz_ranking = mocker.patch(
+            'apps.controllers.QuizController.sendQuizRanking'
+        )
+        mock_send_event_stop_quiz_no_winner = mocker.patch(
+            'apps.controllers.QuizController.sendEventStopQuizNoWinner'
+        )
+        mock_send_event_stop_quiz_winner = mocker.patch(
+            'apps.controllers.QuizController.sendEventStopQuizWinner'
+        )
+        mock_send_event_stop_quiz_no_more_questions = mocker.patch(
+            'apps.controllers.QuizController.sendEventStopQuizNoMoreQuestions'
+        )
+        mock_send_event_continue_quiz = mocker.patch(
+            'apps.controllers.QuizController.sendEventContinueQuiz'
+        )
+
+        quizController.reveal_answer()
+
+        assert mock_send_event_reveal_answer.call_count == 1
+        assert mock_send_event_reveal_answer.call_args == call()
+
+        assert mock_send_stats_answer_question.call_count == 1
+        assert mock_send_stats_answer_question.call_args == call()
+
+        assert mock_process_contestant_answers.call_count == 1
+        assert mock_process_contestant_answers.call_args == call()
+
+        assert mock_calculate_rankings.call_count == 1
+        assert mock_calculate_rankings.call_args == call()
+
+        assert mock_send_quiz_ranking.call_count == 1
+        assert mock_send_quiz_ranking.call_args == call(ranking)
+
+        assert mock_send_event_stop_quiz_no_winner.call_count == 1
+        assert mock_send_event_stop_quiz_no_winner.call_args == call()
+
+        assert mock_send_event_stop_quiz_winner.call_count == 0
+        assert mock_send_event_stop_quiz_winner.call_args is None
+
+        assert mock_send_event_stop_quiz_no_more_questions.call_count == 0
+        assert mock_send_event_stop_quiz_no_more_questions.call_args is None
+
+        assert mock_send_event_continue_quiz.call_count == 0
+        assert mock_send_event_continue_quiz.call_args is None
+
+    def test_reveal_answer_winner(self, mocker):
+        ranking = Ranking()
+
+        quiz_store.listContestants = [
+            QuizContestant("pouet", 2)
+        ]
+
+        mock_send_event_reveal_answer = mocker.patch(
+            'apps.controllers.QuizController.sendEventRevealAnswer'
+        )
+        mock_send_stats_answer_question = mocker.patch(
+            'apps.controllers.QuizController.sendStatsAnswerQuestion'
+        )
+        mock_process_contestant_answers = mocker.patch(
+            'apps.controllers.QuizController.processContestantAnswers'
+        )
+        mock_calculate_rankings = mocker.patch(
+            'apps.controllers.QuizController.calculateRankings',
+            return_value=ranking
+        )
+        mock_send_quiz_ranking = mocker.patch(
+            'apps.controllers.QuizController.sendQuizRanking'
+        )
+        mock_send_event_stop_quiz_no_winner = mocker.patch(
+            'apps.controllers.QuizController.sendEventStopQuizNoWinner'
+        )
+        mock_send_event_stop_quiz_winner = mocker.patch(
+            'apps.controllers.QuizController.sendEventStopQuizWinner'
+        )
+        mock_send_event_stop_quiz_no_more_questions = mocker.patch(
+            'apps.controllers.QuizController.sendEventStopQuizNoMoreQuestions'
+        )
+        mock_send_event_continue_quiz = mocker.patch(
+            'apps.controllers.QuizController.sendEventContinueQuiz'
+        )
+
+        quizController.reveal_answer()
+
+        assert mock_send_event_reveal_answer.call_count == 1
+        assert mock_send_event_reveal_answer.call_args == call()
+
+        assert mock_send_stats_answer_question.call_count == 1
+        assert mock_send_stats_answer_question.call_args == call()
+
+        assert mock_process_contestant_answers.call_count == 1
+        assert mock_process_contestant_answers.call_args == call()
+
+        assert mock_calculate_rankings.call_count == 1
+        assert mock_calculate_rankings.call_args == call()
+
+        assert mock_send_quiz_ranking.call_count == 1
+        assert mock_send_quiz_ranking.call_args == call(ranking)
+
+        assert mock_send_event_stop_quiz_no_winner.call_count == 0
+        assert mock_send_event_stop_quiz_no_winner.call_args is None
+
+        assert mock_send_event_stop_quiz_winner.call_count == 1
+        assert mock_send_event_stop_quiz_winner.call_args == call()
+
+        assert mock_send_event_stop_quiz_no_more_questions.call_count == 0
+        assert mock_send_event_stop_quiz_no_more_questions.call_args is None
+
+        assert mock_send_event_continue_quiz.call_count == 0
+        assert mock_send_event_continue_quiz.call_args is None
+
+    def test_reveal_answer_no_more_questions(self, mocker):
+        ranking = Ranking()
+
+        quiz_store.listContestants = [
+            QuizContestant("pouet", 2),
+            QuizContestant("pouet2", 2)
+        ]
+        quiz_store.listQuestions = []
+        quiz_store.currentQuestionIndex = 2
+
+        mock_send_event_reveal_answer = mocker.patch(
+            'apps.controllers.QuizController.sendEventRevealAnswer'
+        )
+        mock_send_stats_answer_question = mocker.patch(
+            'apps.controllers.QuizController.sendStatsAnswerQuestion'
+        )
+        mock_process_contestant_answers = mocker.patch(
+            'apps.controllers.QuizController.processContestantAnswers'
+        )
+        mock_calculate_rankings = mocker.patch(
+            'apps.controllers.QuizController.calculateRankings',
+            return_value=ranking
+        )
+        mock_send_quiz_ranking = mocker.patch(
+            'apps.controllers.QuizController.sendQuizRanking'
+        )
+        mock_send_event_stop_quiz_no_winner = mocker.patch(
+            'apps.controllers.QuizController.sendEventStopQuizNoWinner'
+        )
+        mock_send_event_stop_quiz_winner = mocker.patch(
+            'apps.controllers.QuizController.sendEventStopQuizWinner'
+        )
+        mock_send_event_stop_quiz_no_more_questions = mocker.patch(
+            'apps.controllers.QuizController.sendEventStopQuizNoMoreQuestions'
+        )
+        mock_send_event_continue_quiz = mocker.patch(
+            'apps.controllers.QuizController.sendEventContinueQuiz'
+        )
+
+        quizController.reveal_answer()
+
+        assert mock_send_event_reveal_answer.call_count == 1
+        assert mock_send_event_reveal_answer.call_args == call()
+
+        assert mock_send_stats_answer_question.call_count == 1
+        assert mock_send_stats_answer_question.call_args == call()
+
+        assert mock_process_contestant_answers.call_count == 1
+        assert mock_process_contestant_answers.call_args == call()
+
+        assert mock_calculate_rankings.call_count == 1
+        assert mock_calculate_rankings.call_args == call()
+
+        assert mock_send_quiz_ranking.call_count == 1
+        assert mock_send_quiz_ranking.call_args == call(ranking)
+
+        assert mock_send_event_stop_quiz_no_winner.call_count == 0
+        assert mock_send_event_stop_quiz_no_winner.call_args is None
+
+        assert mock_send_event_stop_quiz_winner.call_count == 0
+        assert mock_send_event_stop_quiz_winner.call_args is None
+
+        assert mock_send_event_stop_quiz_no_more_questions.call_count == 1
+        assert mock_send_event_stop_quiz_no_more_questions.call_args == call()
+
+        assert mock_send_event_continue_quiz.call_count == 0
+        assert mock_send_event_continue_quiz.call_args is None
+
+    def test_reveal_answer_continue(self, mocker):
+        ranking = Ranking()
+
+        quiz_store.listContestants = [
+            QuizContestant("pouet", 2),
+            QuizContestant("pouet2", 2)
+        ]
+        quiz_store.listQuestions = [
+            Question("", [], "", ""),
+            Question("", [], "", "")
+        ]
+        quiz_store.currentQuestionIndex = 0
+
+        mock_send_event_reveal_answer = mocker.patch(
+            'apps.controllers.QuizController.sendEventRevealAnswer'
+        )
+        mock_send_stats_answer_question = mocker.patch(
+            'apps.controllers.QuizController.sendStatsAnswerQuestion'
+        )
+        mock_process_contestant_answers = mocker.patch(
+            'apps.controllers.QuizController.processContestantAnswers'
+        )
+        mock_calculate_rankings = mocker.patch(
+            'apps.controllers.QuizController.calculateRankings',
+            return_value=ranking
+        )
+        mock_send_quiz_ranking = mocker.patch(
+            'apps.controllers.QuizController.sendQuizRanking'
+        )
+        mock_send_event_stop_quiz_no_winner = mocker.patch(
+            'apps.controllers.QuizController.sendEventStopQuizNoWinner'
+        )
+        mock_send_event_stop_quiz_winner = mocker.patch(
+            'apps.controllers.QuizController.sendEventStopQuizWinner'
+        )
+        mock_send_event_stop_quiz_no_more_questions = mocker.patch(
+            'apps.controllers.QuizController.sendEventStopQuizNoMoreQuestions'
+        )
+        mock_send_event_continue_quiz = mocker.patch(
+            'apps.controllers.QuizController.sendEventContinueQuiz'
+        )
+
+        quizController.reveal_answer()
+
+        assert mock_send_event_reveal_answer.call_count == 1
+        assert mock_send_event_reveal_answer.call_args == call()
+
+        assert mock_send_stats_answer_question.call_count == 1
+        assert mock_send_stats_answer_question.call_args == call()
+
+        assert mock_process_contestant_answers.call_count == 1
+        assert mock_process_contestant_answers.call_args == call()
+
+        assert mock_calculate_rankings.call_count == 1
+        assert mock_calculate_rankings.call_args == call()
+
+        assert mock_send_quiz_ranking.call_count == 1
+        assert mock_send_quiz_ranking.call_args == call(ranking)
+
+        assert mock_send_event_stop_quiz_no_winner.call_count == 0
+        assert mock_send_event_stop_quiz_no_winner.call_args is None
+
+        assert mock_send_event_stop_quiz_winner.call_count == 0
+        assert mock_send_event_stop_quiz_winner.call_args is None
+
+        assert mock_send_event_stop_quiz_no_more_questions.call_count == 0
+        assert mock_send_event_stop_quiz_no_more_questions.call_args is None
+
+        assert mock_send_event_continue_quiz.call_count == 1
+        assert mock_send_event_continue_quiz.call_args == call()
 
     # ----- next_question ----- #
     def test_next_question_ok(self, mocker):
