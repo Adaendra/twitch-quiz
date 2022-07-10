@@ -7,8 +7,6 @@ Do you like to play quiz?
 
 Now you can do it on stream with your viewers!
 
-*Work in progress*
-
 <br/>
 
 ---
@@ -21,8 +19,6 @@ Now you can do it on stream with your viewers!
 - Get the clientSecret and change the value in the **user_configs.json** file, **clientSecret** parameter. 
 
 *Update the settings part to use a cool interface*
-
-*Work in progress too*
 
 <br/>
 
