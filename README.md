@@ -1,6 +1,8 @@
 # Twitch-Quiz
 
-Project made to test Python and Vue.js. There are no ambitions to do other releases after. So feel free to fork the code.
+Project made to test Python and Vue.js. 
+
+**⚠ There are no ambitions to do other releases after. So feel free to fork the code. ⚠**
 
 ## Description
 Do you like to play quiz?
